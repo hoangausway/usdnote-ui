@@ -1,0 +1,63 @@
+/* Base scales */
+:root {
+  --pico-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --pico-border-radius: 8px;
+}
+
+/* LIGHT (default / forced) */
+:root,
+html[data-theme="light"] {
+  /* Links & accents */
+  --pico-primary: #FFB300 !important;
+  /* Amber 600 */
+  --pico-primary-hover: #FFCA28 !important;
+  /* Amber 400 */
+  --pico-primary-underline: rgba(255, 179, 0, .5) !important;
+  --pico-primary-focus: rgba(255, 179, 0, .375) !important;
+
+  /* BUTTONS (this is what fixes the blue) */
+  --pico-primary-background: #FFB300 !important;
+  /* Button bg */
+  --pico-primary-hover-background: #FFA000 !important;
+  --pico-primary-border: var(--pico-primary-background) !important;
+  --pico-primary-hover-border: var(--pico-primary-hover-background) !important;
+  --pico-primary-inverse: #ffffff !important;
+  /* Text on primary */
+
+  /* Page text/background */
+  --pico-text-color: #1A1A1A !important;
+  --pico-background-color: #FFFFFF !important;
+
+  /* Native control accent */
+  accent-color: var(--pico-primary);
+}
+
+/* DARK (forced) */
+html[data-theme="dark"] {
+  --pico-primary: #FFC107 !important;
+  /* Amber 500 */
+  --pico-primary-hover: #FFD54F !important;
+  /* Amber 300 */
+  --pico-primary-underline: rgba(255, 193, 7, .5) !important;
+  --pico-primary-focus: rgba(255, 193, 7, .375) !important;
+
+  /* BUTTONS */
+  --pico-primary-background: #FFB300 !important;
+  /* Slightly deeper for contrast */
+  --pico-primary-hover-background: #FFA000 !important;
+  --pico-primary-border: var(--pico-primary-background) !important;
+  --pico-primary-hover-border: var(--pico-primary-hover-background) !important;
+  --pico-primary-inverse: #000000 !important;
+
+  --pico-text-color: #F2F2F2 !important;
+  --pico-background-color: #0E0F12 !important;
+
+  accent-color: var(--pico-primary);
+}
+
+.form-compact-buttons button {
+  height: auto;
+  line-height: 1.2;
+  padding-block: .5rem;
+  /* tweak if you want slightly taller */
+}
