@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from "svelte";
 
   const MEDIA = "(prefers-color-scheme: dark)";
-  let mode = "auto"; // "auto" | "light" | "dark"
+  let mode = "dark"; // "auto" | "light" | "dark"
   let mql;
 
   const effective = () => (window.matchMedia(MEDIA).matches ? "dark" : "light");

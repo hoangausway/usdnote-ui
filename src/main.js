@@ -1,5 +1,5 @@
 // Set default theme to 'dark'
-const saved = localStorage.getItem("theme");
+const saved = localStorage.getItem("theme-mode");
 document.documentElement.dataset.theme = saved || "dark";
 
 // Global CSS

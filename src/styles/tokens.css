@@ -1,50 +1,41 @@
 /* src/styles/tokens.css */
-/* Base scales */
+/* Base */
 :root {
   --pico-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   --pico-border-radius: 8px;
 }
 
-/* LIGHT (default / forced) */
+/* LIGHT */
 :root,
-html[data-theme="light"] {
-  /* Links & accents */
+html[data-theme="light"],
+.pico,
+.pico[data-theme="light"] {
   --pico-primary: #FFB300;
-  /* Amber 600 */
   --pico-primary-hover: #FFCA28;
-  /* Amber 400 */
   --pico-primary-underline: rgba(255, 179, 0, .5);
-  --pico-primary-focus: rgba(255, 179, 0, 0.677);
+  --pico-primary-focus: rgba(255, 179, 0, .677);
 
-  /* BUTTONS (this is what fixes the blue) */
   --pico-primary-background: #FFB300;
-  /* Button bg */
   --pico-primary-hover-background: #FFA000;
   --pico-primary-border: var(--pico-primary-background);
   --pico-primary-hover-border: var(--pico-primary-hover-background);
   --pico-primary-inverse: #ffffff;
-  /* Text on primary */
 
-  /* Page text/background */
   --pico-text-color: #1A1A1A;
   --pico-background-color: #FFFFFF;
 
-  /* Native control accent */
   accent-color: var(--pico-primary);
 }
 
-/* DARK (forced) */
-html[data-theme="dark"] {
+/* DARK */
+html[data-theme="dark"],
+.pico[data-theme="dark"] {
   --pico-primary: #FFC107;
-  /* Amber 500 */
   --pico-primary-hover: #FFD54F;
-  /* Amber 300 */
   --pico-primary-underline: rgba(255, 193, 7, .5);
   --pico-primary-focus: rgba(255, 193, 7, .375);
 
-  /* BUTTONS */
   --pico-primary-background: #FFB300;
-  /* Slightly deeper for contrast */
   --pico-primary-hover-background: #FFA000;
   --pico-primary-border: var(--pico-primary-background);
   --pico-primary-hover-border: var(--pico-primary-hover-background);

@@ -67,6 +67,13 @@
 </button>
 
 <style>
+  :global(html[data-theme="dark"]) .menu-btn {
+    color: var(--pico-primary); /* amber icon on dark bg */
+    border-color: color-mix(in srgb, var(--pico-primary), transparent 70%);
+  }
+  :global(html[data-theme="dark"]) .menu-btn:hover {
+    background: color-mix(in srgb, var(--pico-primary), transparent 90%);
+  }
   .menu-btn {
     /* visual */
     color: var(--mb-fg);

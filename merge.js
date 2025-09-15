@@ -1,41 +1,77 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-async function combineJSFiles(folderPath, outputFile = "combined-js.txt") {
+function ts() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(
+    d.getHours()
+  )}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+function resolveOutputFile(arg) {
+  const stamp = ts();
+
+  if (!arg) {
+    // default: merged-dashboard-<timestamp>.txt in CWD
+    return `merged-dashboard-${stamp}.txt`;
+  }
+
+  const statPromise = fs.stat(arg).catch(() => null);
+
+  return statPromise.then((st) => {
+    if (st?.isDirectory?.()) {
+      // If a directory is provided, write the default file into it
+      return path.join(arg, `merged-dashboard-${stamp}.txt`);
+    }
+
+    // Treat as a file path or base name
+    const parsed = path.parse(arg);
+    if (!parsed.ext) {
+      // No extension given → use as a base name, add timestamp + .txt
+      return `${arg}-${stamp}.txt`;
+    }
+
+    if (parsed.ext.toLowerCase() === ".txt") {
+      // Insert timestamp before .txt
+      return path.join(parsed.dir, `${parsed.name}-${stamp}${parsed.ext}`);
+    }
+
+    // If a different extension was provided, keep it and still add the stamp
+    return path.join(parsed.dir, `${parsed.name}-${stamp}${parsed.ext}`);
+  });
+}
+
+async function combineJSFiles(folderPath, outputFile) {
   try {
     // Ensure the folder path exists
-    if (
-      !(await fs
-        .stat(folderPath)
-        .then((stat) => stat.isDirectory())
-        .catch(() => false))
-    ) {
-      throw new Error(`Directory ${folderPath} does not exist`);
-    }
+    const okDir = await fs
+      .stat(folderPath)
+      .then((s) => s.isDirectory())
+      .catch(() => false);
+    if (!okDir) throw new Error(`Directory ${folderPath} does not exist`);
 
     let combinedContent = "";
     const filesProcessed = [];
-    const scriptName = path.basename(process.argv[1]); // Get the name of this script (merge.js)
+    const scriptName = path.basename(process.argv[1]); // this script (merge.js)
 
-    // Function to process a single directory
+    // Process only root and one level of subfolders
     async function processDirectory(dirPath) {
       const entries = await fs.readdir(dirPath, { withFileTypes: true });
+
+      // Stable order
+      entries.sort((a, b) => a.name.localeCompare(b.name));
 
       for (const entry of entries) {
         const fullPath = path.join(dirPath, entry.name);
 
         if (entry.isDirectory()) {
-          // Process one level of subfolders
-          if (dirPath === folderPath) {
-            await processDirectory(fullPath);
-          }
+          if (dirPath === folderPath) await processDirectory(fullPath);
         } else if (
           entry.isFile() &&
           (entry.name.endsWith(".js") || entry.name.endsWith(".svelte")) &&
           entry.name !== scriptName
         ) {
-          // Include .js and .svelte, exclude this script
-          // Process .js and .svelte files except merge.js
           const content = await fs.readFile(fullPath, "utf8");
           combinedContent += `\n\n// File: ${path.relative(
             folderPath,
@@ -46,10 +82,8 @@ async function combineJSFiles(folderPath, outputFile = "combined-js.txt") {
       }
     }
 
-    // Process the root folder
     await processDirectory(folderPath);
 
-    // Write the combined content to output file
     await fs.writeFile(outputFile, combinedContent.trim());
 
     console.log(
@@ -62,10 +96,13 @@ async function combineJSFiles(folderPath, outputFile = "combined-js.txt") {
   }
 }
 
-// Example usage
-// You can run it from command line: node merge.js /path/to/folder [outputfile]
+// ---- CLI ----
+// Usage: node merge.js /path/to/folder [outputPathOrName]
+//  - If [output] omitted: writes ./merged-dashboard-YYYYMMDD-HHMMSS.txt
+//  - If [output] is a directory: writes merged-dashboard-<stamp>.txt inside it
+//  - If [output] is a file name (with or without .txt): inserts <stamp> before extension (or adds .txt)
 const args = process.argv.slice(2);
-const folderPath = args[0] || "./src"; // Default to './src' if no path provided
-const outputFile = args[1] || "merged-dashboard.txt";
+const folderPath = args[0] || "./src";
 
-combineJSFiles(folderPath, outputFile);
+const resolved = await resolveOutputFile(args[1]);
+combineJSFiles(folderPath, resolved);

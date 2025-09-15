@@ -2,6 +2,7 @@
   import Button from "../ui/Button.svelte";
   import Checkbox from "../ui/Checkbox.svelte";
   import TextField from "../ui/TextField.svelte";
+  import ThemeSwitcher from "../components/ThemeSwitcher.svelte";
 
   let dialogEl;
   let email = "";
@@ -24,6 +25,7 @@
   }
 </script>
 
+<ThemeSwitcher />
 <section>
   <h2>UI Playground</h2>
   <p>Quickly test Pico styles, forms, and components (Amber + light/dark).</p>

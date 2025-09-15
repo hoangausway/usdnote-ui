@@ -1,12 +1,11 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import MenuButton from "./MenuButton.svelte";
+  import XSyncLogo from "./XSyncLogo.svelte";
 
   const dispatch = createEventDispatcher(); /* NEW */
 
-  export let logoText = "USDNote";
   export let logoHref = "/";
-  export let logoSrc = "";
   export let isAuthed = false;
 
   export let menuExpanded = false;
@@ -18,22 +17,20 @@
 
 <header class="bar container">
   <a class="brand" href={logoHref}>
-    {#if logoSrc}<img src={logoSrc} alt={`${logoText} logo`} /><span class="sr"
-        >{logoText}</span
-      >
-    {:else}<strong>{logoText}</strong>{/if}
+    <XSyncLogo size="80" color="whitesmoke" />
   </a>
 
   <nav class="right">
-    <MenuButton
-      tone="auto"
-      controls="app-drawer"
-      expanded={menuExpanded}
-      on:click={openMenu}
-    />
-    {#if !isAuthed}
-      <a href="/signup" role="button" class="contrast">Sign up</a>
-      <a href="/login" role="button">Log in</a>
+    {#if isAuthed}
+      <MenuButton
+        tone="auto"
+        controls="app-drawer"
+        expanded={menuExpanded}
+        on:click={openMenu}
+      />
+    {:else}
+      <a href="/signup" role="button">Sign up</a>
+      <a href="/login" role="button" class="contrast">Log in</a>
     {/if}
   </nav>
 </header>

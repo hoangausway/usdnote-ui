@@ -3,6 +3,7 @@ import Home from "./pages/Home.svelte";
 import Playground from "./pages/Playground.svelte";
 import Signup from "./pages/Signup.svelte";
 import Login from "./pages/Login.svelte";
+import Dashboard from "./pages/Dashboard.svelte";
 
 const mount = (Comp) => {
   const target = document.getElementById("view");
@@ -12,6 +13,7 @@ const mount = (Comp) => {
 };
 
 page("/", () => mount(Home));
+page("/dashboard", () => mount(Dashboard));
 page("/playground", () => mount(Playground));
 page("/signup", () => mount(Signup));
 page("/login", () => mount(Login));

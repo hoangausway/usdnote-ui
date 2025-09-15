@@ -4,35 +4,30 @@
   import BottomBar from "./components/BottomBar.svelte";
   import SidePanel from "./components/SidePanel.svelte";
 
-  let drawerOpen = false; // NEW
   let isAuthed = true; // wire to your auth store later
   let user = { name: "Hoang Nguyen", email: "hoang@example.com" };
-  const logoSrc = "/lockcoin.png";
+
+  let drawerOpen = false; // NEW
 
   // Left panel nav — tweak as needed
-  const navItems = [
-    { label: "Dashboard", href: "/" },
-    { label: "Deposit funds", href: "/deposit" },
-    { label: "Wallets", href: "/wallets" },
-    { label: "Buy / Sell", href: "/trade" },
-    { label: "Swap", href: "/swap" },
-    { label: "Bundles", href: "/bundles" },
-    { label: "NFT", href: "/nft" },
-    { label: "OTC", href: "/otc" },
-    { label: "Markets", href: "/markets" },
-    { separator: true },
-    { label: "My account", href: "/account" },
-    { separator: true },
-    { label: "Logout", href: "/" },
+  const items = [
+    { label: "Dashboard", href: "/dashboard", icon: "home" },
+    { label: "Activities", href: "/activities", icon: "market" },
+    { label: "Buy Coins", href: "/buy", icon: "trade" },
+    { label: "Send Coins", href: "/send", icon: "arrow" },
+    { label: "Redeem Coins", href: "/redeem", icon: "plus" },
+    { label: "Set Wallet Keys", href: "/walletkey", icon: "settings" },
+  ];
+  const footerItems = [
+    { label: "Settings", href: "/settings", icon: "settings" },
+    { label: "Help", href: "/help", icon: "help" },
+    { label: "Sign out", href: "/logout", icon: "logout" },
   ];
 </script>
 
 <main class="pico">
   <HeaderBar
     {isAuthed}
-    {user}
-    {logoSrc}
-    logoText="USDNote"
     menuExpanded={drawerOpen}
     on:menu={() => (drawerOpen = true)}
   />
@@ -43,5 +38,12 @@
   <BottomBar />
 
   <!-- Drawer -->
-  <SidePanel bind:open={drawerOpen} title="Menu" items={navItems} />
+  <!-- <SidePanel bind:open={drawerOpen} title="Menu" items={navItems} /> -->
+  <SidePanel
+    bind:open={drawerOpen}
+    title="USDNote"
+    {items}
+    {footerItems}
+    {user}
+  />
 </main>
