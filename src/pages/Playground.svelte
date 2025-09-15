@@ -1,4 +1,8 @@
 <script>
+  import Button from "../ui/Button.svelte";
+  import Checkbox from "../ui/Checkbox.svelte";
+  import TextField from "../ui/TextField.svelte";
+
   let dialogEl;
   let email = "";
   let amount = 100;
@@ -28,10 +32,11 @@
   <article class="card">
     <h3>Buttons</h3>
     <div class="grid">
-      <button>Default</button>
-      <button class="secondary">Secondary</button>
-      <button class="contrast">Contrast</button>
-      <button disabled>Disabled</button>
+      <Button>Custom</Button>
+      <Button>Default</Button>
+      <Button class="secondary">Secondary</Button>
+      <Button class="contrast">Contrast</Button>
+      <Button disabled>Disabled</Button>
     </div>
   </article>
 
@@ -39,29 +44,36 @@
   <article class="card">
     <h3>Form</h3>
     <form on:submit={submit} style="max-width:520px;">
-      <div class="grid">
-        <label>Email <input type="email" bind:value={email} required /></label>
-        <label
-          >Amount <input
-            type="number"
-            min="0"
-            step="0.01"
-            bind:value={amount}
-          /></label
-        >
-      </div>
+      <TextField
+        id="email-login"
+        label="Email"
+        type="email"
+        bind:value={email}
+        required
+      />
+
+      <TextField
+        id="amt"
+        label="Amount"
+        type="number"
+        bind:value={amount}
+        min="0"
+        step="0.01"
+        required
+      />
 
       <div style="display:flex; gap:.75rem; margin-top:1rem;">
-        <button type="submit">Submit</button>
-        <button
+        <Button type="submit">Submit</Button>
+        <Button
           type="button"
           class="secondary"
           on:click={() => {
             email = "";
             amount = 100;
-          }}>Reset</button
+          }}>Reset</Button
         >
       </div>
+      <Checkbox id="chkbox">Show Password</Checkbox>
     </form>
   </article>
 
@@ -78,8 +90,8 @@
   <!-- Modal trigger -->
   <article class="card">
     <h3>Modal</h3>
-    <button class="contrast" type="button" on:click={openDialog}
-      >Open Modal</button
+    <Button class="contrast" type="button" on:click={openDialog}
+      >Open Modal</Button
     >
   </article>
 </section>
@@ -88,8 +100,8 @@
 <dialog bind:this={dialogEl}>
   <article>
     <header>
-      <button aria-label="Close" rel="prev" type="button" on:click={closeDialog}
-      ></button>
+      <Button aria-label="Close" rel="prev" type="button" on:click={closeDialog}
+      ></Button>
       <h3>Confirm</h3>
     </header>
     <p>
@@ -97,10 +109,10 @@
       <strong>${amount}</strong>?
     </p>
     <footer>
-      <button class="secondary" type="button" on:click={closeDialog}
-        >Cancel</button
+      <Button class="secondary" type="button" on:click={closeDialog}
+        >Cancel</Button
       >
-      <button type="button" on:click={closeDialog}>Confirm</button>
+      <Button type="button" on:click={closeDialog}>Confirm</Button>
     </footer>
   </article>
 </dialog>

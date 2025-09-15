@@ -1,0 +1,39 @@
+/* src/ui/form.css */
+.form-compact-buttons button {
+    height: auto;
+    line-height: 1.2;
+    padding-block: .5rem;
+    /* tweak if you want slightly taller */
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+input,
+button {
+    margin-bottom: 1rem;
+}
+
+button {
+    width: 100%;
+}
+
+.label-inline {
+    display: flex;
+    align-items: center;
+}
+
+.label-inline>input[type="checkbox"] {
+    margin: 0 8px 0 0;
+}
+
+label {
+    margin-bottom: 0.5rem;
+}

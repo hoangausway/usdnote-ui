@@ -1,0 +1,74 @@
+/* src/styles/global.css
+   Purpose: app-wide polish, a11y helpers, media defaults.
+   Avoid: colors, page-specific spacing/layout (those belong in tokens.css / form.css) */
+
+/* 1) Document & scrolling */
+:root {
+    scroll-behavior: smooth;
+}
+
+html,
+body,
+#app {
+    min-height: 100%;
+}
+
+/* 2) Media defaults */
+img,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 3) A11y utilities */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Optional “skip to content” pattern if you add an anchor */
+.skip-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(-100%);
+    background: var(--pico-primary);
+    color: var(--pico-primary-inverse);
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    z-index: 1000;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* 4) Opt-in focus ring utility for custom elements (doesn’t override Pico defaults) */
+.focus-ring:focus-visible {
+    outline: 2px solid var(--pico-primary-focus);
+    outline-offset: 2px;
+}
+
+/* 5) Motion reduction */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+html.no-scroll,
+body.no-scroll {
+    overflow: hidden;
+}
