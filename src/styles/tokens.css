@@ -73,8 +73,10 @@ html[data-theme="dark"],
   --pico-primary-background: #0e3f2b;
   --pico-primary-hover-background: #12533a;
 
-  --surface: #0c1210;
-  --surface-2: #0f1714;
+  /* --surface: #0c1210;
+  --surface-2: #0f1714; */
+  --surface: #ffffff;
+  --surface-2: #f9faf9;
   --text-1: #e6f4ef;
   --text-2: #b9d2c9;
 

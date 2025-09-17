@@ -8,21 +8,6 @@
   let user = { name: "Hoang Nguyen", email: "hoang@example.com" };
 
   let drawerOpen = false; // NEW
-
-  // Left panel nav — tweak as needed
-  const items = [
-    { label: "Dashboard", href: "/dashboard", icon: "home" },
-    { label: "Activities", href: "/activities", icon: "market" },
-    { label: "Buy Coins", href: "/buy", icon: "trade" },
-    { label: "Send Coins", href: "/send", icon: "arrow" },
-    { label: "Redeem Coins", href: "/redeem", icon: "plus" },
-    { label: "Set Wallet Keys", href: "/walletkey", icon: "settings" },
-  ];
-  const footerItems = [
-    { label: "Settings", href: "/settings", icon: "settings" },
-    { label: "Help", href: "/help", icon: "help" },
-    { label: "Sign out", href: "/logout", icon: "logout" },
-  ];
 </script>
 
 <main class="pico">
@@ -38,12 +23,5 @@
   <BottomBar />
 
   <!-- Drawer -->
-  <!-- <SidePanel bind:open={drawerOpen} title="Menu" items={navItems} /> -->
-  <SidePanel
-    bind:open={drawerOpen}
-    title="USDNote™"
-    {items}
-    {footerItems}
-    {user}
-  />
+  <SidePanel bind:open={drawerOpen} title="USDNote™" {user} />
 </main>

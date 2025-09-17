@@ -13,11 +13,24 @@
   export let width = 340; // px
 
   // item: { label, href, icon?, badge?, active? } or { separator: true }
-  export let items = [];
   export let sections = null; // [{ heading?, items:[...] }]
-  export let footerItems = [];
   export let activeHref = ""; // highlight current route
   export let user = null; // { name, email }
+
+  // Left panel nav — tweak as needed
+  const items = [
+    { label: "Dashboard", href: "/dashboard", icon: "home" },
+    { label: "Activities", href: "/activities", icon: "market" },
+    { label: "Buy Coins", href: "/buy", icon: "trade" },
+    { label: "Send Coins", href: "/send", icon: "arrow" },
+    { label: "Redeem Coins", href: "/redeem", icon: "plus" },
+    { label: "Set Wallet Keys", href: "/walletkey", icon: "settings" },
+  ];
+  const footerItems = [
+    { label: "Settings", href: "/settings", icon: "settings" },
+    { label: "Help", href: "/help", icon: "help" },
+    { label: "Sign out", href: "/logout", icon: "logout" },
+  ];
 
   let panel;
   let prevFocus;

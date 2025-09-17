@@ -1,3 +1,4 @@
+<!-- src/components/HeaderBar.svelte -->
 <script>
   import { createEventDispatcher } from "svelte";
   import MenuButton from "./MenuButton.svelte";

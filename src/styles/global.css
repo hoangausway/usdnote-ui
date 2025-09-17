@@ -5,6 +5,7 @@
 /* 1) Document & scrolling */
 :root {
     scroll-behavior: smooth;
+    /* default */
 }
 
 html,

@@ -112,12 +112,20 @@
   :root {
     --r: 6px;
     --veil: color-mix(in srgb, #fff 70%, transparent);
+    --fr-color: black;
+    --bg-color: whitesmoke;
+    --bg-article-header: transparent;
+    --fr-article-header: var(--fr-color);
+    background-color: var(--bg-color);
   }
   .container {
     max-width: min(100%, 1140px);
     padding-inline: clamp(16px, 3vw, 28px);
     position: relative;
-    background-color: whitesmoke;
+  }
+
+  main.container {
+    background-color: var(--bg-color);
   }
   main.container::before {
     content: "";
@@ -159,6 +167,9 @@
   }
 
   /* Cards */
+  article header h3 {
+    color: var(--fr-article-header);
+  }
   .card {
     background: #fff;
     border-radius: var(--r);
@@ -168,8 +179,18 @@
     background: var(--brand-jade-100);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
   }
+  .card--tip header {
+    background-color: var(--bg-article-header);
+    padding-top: 1.5rem;
+  }
   .card--tip {
     border: 1px solid var(--deco-border-amber);
+  }
+  .card--tip li {
+    color: var(--fr-color);
+  }
+  .cardstep {
+    background-color: var(--bg-article-header);
   }
   .cardstep h6 {
     color: var(--brand-jade-800);
