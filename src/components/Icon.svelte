@@ -1,5 +1,8 @@
 <script>
   export let name = "arrow";
+  export let stroke = "currentColor"; // ✅ allow override from outside
+  export let size = 22; // optional: make size configurable
+
   const paths = {
     home: "M3 11l9-8 9 8v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10",
     wallet:
@@ -20,11 +23,11 @@
 </script>
 
 <svg
-  width="22"
-  height="22"
+  width={size}
+  height={size}
   viewBox="0 0 24 24"
   fill="none"
-  stroke="currentColor"
+  {stroke}
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"

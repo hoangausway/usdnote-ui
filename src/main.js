@@ -1,6 +1,6 @@
 // Set default theme to 'dark'
 const saved = localStorage.getItem("theme-mode");
-document.documentElement.dataset.theme = saved || "dark";
+document.documentElement.dataset.theme = saved || "light";
 
 // Global CSS
 import "@picocss/pico/css/pico.min.css"; // Pico (class-based)

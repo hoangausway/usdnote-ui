@@ -1,8 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import MenuButton from "./MenuButton.svelte";
-  import XSyncLogo from "./XSyncLogo.svelte";
-
+  import USDNoteLogo from "./USDNoteLogo.svelte";
   const dispatch = createEventDispatcher(); /* NEW */
 
   export let logoHref = "/";
@@ -16,9 +15,7 @@
 </script>
 
 <header class="bar container">
-  <a class="brand" href={logoHref}>
-    <XSyncLogo size="80" color="whitesmoke" />
-  </a>
+  <a class="brand" href={logoHref}>USDNote</a>
 
   <nav class="right">
     {#if isAuthed}
@@ -41,36 +38,21 @@
     align-items: center;
     gap: 1rem;
     padding-block: 0.75rem;
+    border-bottom: 1px solid var(--pico-muted-border-color);
   }
   .brand {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-  }
-  .brand img {
-    height: 28px;
-    width: auto;
-    display: block;
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--brand-amber-800);
   }
   .right {
     margin-inline-start: auto;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-  }
-  .icon.ghost {
-    background: transparent;
-    border: 1px solid var(--pico-muted-border-color);
-    padding: 0.4rem 0.6rem;
-    border-radius: 0.6rem;
-  }
-  .sr {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    overflow: hidden;
-    white-space: nowrap;
-    clip: rect(0, 0, 0, 0);
   }
 </style>

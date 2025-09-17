@@ -4,6 +4,8 @@
   import Checkbox from "../ui/Checkbox.svelte";
   import Button from "../ui/Button.svelte";
   import Toast from "../ui/Toast.svelte";
+  import { login } from "../stores/auth.js";
+  import page from "page"; // ✅ ADD THIS
 
   let email = "";
   let pwd = "";
@@ -29,6 +31,8 @@
       isSubmitting = false;
       toastMessage = `Logged in (demo)${remember ? " — Remembered" : ""}`;
       toastType = "success";
+      login(); // ✅ set isAuthed = true
+      page("/dashboard"); // ✅ redirect
     }, 600);
   }
 </script>

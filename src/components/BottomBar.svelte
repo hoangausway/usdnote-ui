@@ -1,5 +1,5 @@
 <footer class="bottom container">
-  <small>© {new Date().getFullYear()} USDNote</small>
+  <small>© {new Date().getFullYear()} USDNote™</small>
   <span class="spacer"></span>
   <nav>
     <a href="/privacy">Privacy</a>

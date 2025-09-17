@@ -1,499 +1,251 @@
 <script>
-  // Smooth-scroll helper for in-page anchors
-  function go(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  import bgSvg from "../assets/xsync.svg";
+  import bgVideo from "../assets/bg.mp4";
+  import Typewriter from "../components/Typewriter.svelte";
+  import GetStartButton from "../components/GetStartButton.svelte";
+
+  let showButton = false;
+
+  export let rightTopImage =
+    "https://images01.nicepage.com/c461c07a441a5d220e8feb1a/8d0c62508a53506da5f8966f/FDSF.jpg";
+  export let leftImage =
+    "https://images01.nicepage.com/c461c07a441a5d220e8feb1a/e76b5b7b20de5ea0ac53c38a/bitcoin-pile-top-dolar-bills_23-2148285293.jpg";
 </script>
 
-<!-- Hero -->
-<section class="hero container">
-  <div class="hero-art" aria-hidden="true">
-    <!-- Animated “coins” -->
-    <svg class="coin c1" viewBox="0 0 64 64" role="img" aria-label="USD coin">
-      <circle cx="32" cy="32" r="30" class="coin-bg" />
-      <text x="50%" y="52%" text-anchor="middle" class="coin-txt">$</text>
-    </svg>
-    <svg class="coin c2" viewBox="0 0 64 64" role="img" aria-label="Lock coin">
-      <circle cx="32" cy="32" r="30" class="coin-bg" />
-      <path d="M22 32h20v14H22z M26 32v-6a6 6 0 0 1 12 0v6" class="lock" />
-    </svg>
-    <svg class="coin c3" viewBox="0 0 64 64" role="img" aria-label="Microchain">
-      <circle cx="20" cy="32" r="6" class="node" />
-      <circle cx="44" cy="20" r="6" class="node" />
-      <circle cx="44" cy="44" r="6" class="node" />
-      <path d="M25 30 L39 22 M25 34 L39 42" class="edge" />
-    </svg>
-  </div>
+<!-- Decorative amber band -->
+<div class="band" aria-hidden="true"></div>
 
-  <div class="hero-copy">
-    <h1>USDNote™ & LockCoin™ Technology</h1>
-    <p class="lead">
-      Dividend-paying stablecoin + fractional investment rails—powered by
-      <em>Microchains™</em> for fast, private, auditable transfers.
-    </p>
-    <div class="cta">
-      <a href="/signup" role="button" class="primary">Get started</a>
-      <button class="contrast outline" on:click={() => go("usdnote")}
-        >Learn more</button
-      >
-    </div>
-    <p class="microcopy">
-      Not financial advice. Product availability may vary by jurisdiction.
-    </p>
-  </div>
-</section>
-
-<!-- Section: USDNote -->
-<section id="usdnote" class="container">
-  <article class="card reveal">
-    <header>
-      <h2>1. USDNote™ — A Dividend-Paying Stablecoin</h2>
-      <p class="muted">
-        A USD-linked note backed by U.S. Treasuries; interest is distributed as
-        dividends.
-      </p>
-    </header>
-
-    <div class="grid cols-illustration">
-      <div>
-        <h3>Strengths</h3>
-        <ul>
-          <li>
-            <strong>Treasury-backed yield</strong> → dividends from interest on U.S.
-            Treasuries.
-          </li>
-          <li>
-            <strong>First of its kind</strong> among mainstream stablecoin models.
-          </li>
-          <li>
-            <strong>LockCoin™ Microchains™</strong> for high-throughput transactions.
-          </li>
-          <li>
-            <strong>Anonymous dividend distribution</strong> with compliance alignment.
-          </li>
-          <li><strong>Easy entry</strong> — email or phone onboarding.</li>
-          <li>
-            <strong>Regulatory posture</strong> — U.S. registered issuer for transparency.
-          </li>
-        </ul>
-
-        <h3>Potential Concerns</h3>
-        <ul>
-          <li>
-            <strong>Regulatory risk</strong> — dividend features may be treated as
-            securities.
-          </li>
-          <li>
-            <strong>Scalability & liquidity</strong> — adoption depth affects usability.
-          </li>
-          <li>
-            <strong>Anon vs. compliance</strong> — AML/KYC design must be carefully
-            balanced.
-          </li>
-        </ul>
-
-        <div class="inline-ctas">
-          <a href="/signup" role="button">Create account</a>
-          <a href="/playground" class="secondary">Try the UI playground</a>
+<main class="container" style={`--bg:url(${bgSvg})`}>
+  <!-- Hero with typewriter headline -->
+  <section class="hero">
+    <article class="card card--headline">
+      <Typewriter
+        text="USDNote™ — the easiest way to access and earn from U.S. Treasuries"
+        speed={60}
+        on:start={() => (showButton = false)}
+        on:done={() => (showButton = true)}
+      />
+      {#if showButton}
+        <div class="action">
+          <GetStartButton />
         </div>
-      </div>
+      {/if}
+    </article>
 
-      <!-- Illustration: yield into dividends -->
-      <div class="illus">
-        <svg
-          viewBox="0 0 360 220"
-          class="illus-svg"
-          aria-label="Treasury yield to dividends"
-        >
-          <defs>
-            <linearGradient id="grad" x1="0" x2="1">
-              <stop offset="0%" stop-color="var(--pico-primary)" />
-              <stop
-                offset="100%"
-                stop-color="color-mix(in srgb, var(--pico-primary), #fff 30%)"
-              />
-            </linearGradient>
-          </defs>
-          <rect x="10" y="20" width="140" height="70" rx="10" class="box" />
-          <text x="80" y="60" text-anchor="middle" class="lbl"
-            >U.S. Treasuries</text
-          >
+    <figure class="media-left">
+      <img src={leftImage} alt="Bitcoin on dollar bills" />
+    </figure>
+  </section>
 
-          <path d="M150 55 C 190 55, 190 110, 230 110" class="flow" />
-          <rect x="230" y="90" width="120" height="40" rx="10" class="box" />
-          <text x="290" y="115" text-anchor="middle" class="lbl">Yield</text>
-
-          <path d="M290 130 C 280 160, 240 180, 200 190" class="flow" />
-          <circle cx="190" cy="190" r="8" class="coin-dot" />
-          <circle cx="210" cy="185" r="8" class="coin-dot" />
-          <circle cx="170" cy="185" r="8" class="coin-dot" />
-          <text x="180" y="210" text-anchor="middle" class="lbl small"
-            >Dividends → Holders</text
-          >
-        </svg>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- Section: Fractional Investment (LockCoin) -->
-<section id="lockcoin" class="container">
-  <article class="card reveal">
-    <header>
-      <h2>2. Fractional Investment Ecosystem — LockCoin™</h2>
-      <p class="muted">
-        Tokenize equity, debt, or real-world assets; enable P2P trading,
-        dividends, and governance.
-      </p>
-    </header>
-
-    <div class="grid cols-illustration">
-      <div>
-        <h3>Strengths</h3>
-        <ul>
-          <li>
-            <strong>Issue native coins</strong> for fractional ownership or financing.
-          </li>
-          <li>
-            <strong>Direct P2P trading</strong> — minimize intermediaries.
-          </li>
-          <li>
-            <strong>Built-in dividend distribution</strong> for transparent earnings.
-          </li>
-          <li><strong>Governance rights</strong> — token-based voting.</li>
-        </ul>
-
-        <h4>Use cases</h4>
-        <ul>
-          <li>Real-estate tokenization (fractional property shares)</li>
-          <li>Equity & debt issuance for startups/SMEs</li>
-          <li>Global SME financing with programmable rules</li>
-        </ul>
-
-        <h3>Potential Concerns</h3>
-        <ul>
-          <li><strong>Market adoption</strong> and ecosystem trust.</li>
-          <li>
-            <strong>Security risks</strong> — strong cryptographic and ops controls.
-          </li>
-          <li>
-            <strong>Regulatory fragmentation</strong> across jurisdictions.
-          </li>
-        </ul>
-      </div>
-
-      <!-- Illustration: tokenized asset graph -->
-      <div class="illus">
-        <svg
-          viewBox="0 0 360 220"
-          class="illus-svg"
-          aria-label="Tokenized asset network"
-        >
-          <g class="pulse">
-            <circle cx="180" cy="110" r="16" class="hub" />
-            <text x="180" y="114" text-anchor="middle" class="lbl small"
-              >Asset</text
-            >
-          </g>
-          <g>
-            <circle cx="70" cy="60" r="12" class="node" />
-            <circle cx="290" cy="60" r="12" class="node" />
-            <circle cx="70" cy="170" r="12" class="node" />
-            <circle cx="290" cy="170" r="12" class="node" />
-            <path d="M180 110 L70 60" class="edge" />
-            <path d="M180 110 L290 60" class="edge" />
-            <path d="M180 110 L70 170" class="edge" />
-            <path d="M180 110 L290 170" class="edge" />
-          </g>
-        </svg>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- Verdict / CTA -->
-<section class="container">
-  <article class="card verdict reveal">
-    <h2>Overall Verdict</h2>
-    <p>
-      <strong>USDNote™ and LockCoin™</strong> present an ambitious financial innovation:
-      combining stable-value digital money with yield distribution and decentralized
-      asset tokenization.
-    </p>
+  <!-- Tip: what is USDNote -->
+  <article class="card card--tip">
     <ul>
+      <li>USDNote = tokenized note backed 1:1 by U.S. Treasuries + cash.</li>
+      <li>Distributes Treasury yield back to holders.</li>
       <li>
-        <strong>Strongest value</strong>: democratize access—Treasury-backed
-        returns and fractional ownership.
-      </li>
-      <li>
-        <strong>Key challenges</strong>: regulation, liquidity, and adoption at
-        scale.
+        Powered by the Lockcoin Microchain patent → faster, more private, more
+        auditable than blockchain.
       </li>
     </ul>
-    <div class="inline-ctas">
-      <a href="/signup" role="button" class="primary">Open an account</a>
-      <a href="/login" role="button" class="secondary">Log in</a>
+  </article>
+
+  <!-- Right decorative image -->
+  <div
+    class="media-right"
+    style={`--img:url(${rightTopImage})`}
+    aria-hidden="true"
+  ></div>
+
+  <!-- Lifecycle -->
+  <article class="card card--tip">
+    <header><h3>Lifecycle of a USDNote™</h3></header>
+    {#each [{ title: "Buy / Issue", body: "User sends USD (via bank transfer, on-ramp, or licensed partner). Issuer buys short-term Treasuries. New USDNotes are minted and credited to the wallet. Each coin carries a lock + key." }, { title: "Hold / Earn", body: "While holding, Treasuries generate yield. Periodically, 90% is distributed to holders in new USDNotes ('dividend coins'); 10% retained for expenses." }, { title: "Transfer", body: "Two modes: Cash-like (private, instant, no receipt). Check-like (signed with key, creates auditable receipt). Transfers are validated by locks." }, { title: "Redeem", body: "Holder returns USDNotes to issuer. Issuer sells Treasuries (or uses cash buffer). User gets USD 1:1. Redeemed coins are burned." }] as step}
+      <article class="cardstep">
+        <h6>{step.title}</h6>
+        <p>{step.body}</p>
+      </article>
+    {/each}
+  </article>
+
+  <!-- Why USDNote -->
+  <article class="card card--tip">
+    <header><h3>Why USDNote™?</h3></header>
+    <ul>
+      <li><strong>Sustainable</strong> — no mining, no energy waste.</li>
+      <li><strong>Scalable</strong> — millions of transactions per second.</li>
+      <li><strong>Secure</strong> — fraud alerts + time-delay safety.</li>
+      <li>
+        <strong>Secrecy</strong> — anonymity (cash-like) or protected receipts (check-like).
+      </li>
+      <li><strong>Speed</strong> — milliseconds to finality.</li>
+    </ul>
+  </article>
+
+  <!-- Background video hero -->
+  <section class="hihero">
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src={bgVideo} type="video/mp4" />
+    </video>
+    <div class="hihero-content">
+      <h1>USDNote™</h1>
+      <p>Dividend-paying stablecoin backed by U.S. Treasuries.</p>
+      <GetStartButton />
     </div>
-  </article>
-</section>
+  </section>
+</main>
 
-<!-- Mini FAQ -->
-<section class="container">
-  <article class="card reveal">
-    <h2>FAQs</h2>
-    <details>
-      <summary>How are dividends handled?</summary>
-      <p>
-        Interest from backing Treasuries is pooled and distributed to holders.
-        Distribution flows are designed to preserve privacy while maintaining
-        auditability.
-      </p>
-    </details>
-    <details>
-      <summary>Is USDNote a security?</summary>
-      <p>
-        Treatment may vary by jurisdiction due to dividend features. The product
-        is designed with compliance in mind; always check local rules before
-        participating.
-      </p>
-    </details>
-    <details>
-      <summary>What is Microchains™?</summary>
-      <p>
-        LockCoin’s transaction fabric emphasizing speed, privacy, and a public
-        key-based audit trail rather than heavy consensus. It enables cash-like
-        and check-like transfer modes.
-      </p>
-    </details>
-  </article>
-</section>
-
-<!-- Footer CTA -->
-<section class="container final-cta reveal">
-  <div class="card cta">
-    <h2>Ready to explore?</h2>
-    <p>Start with a demo account, then upgrade when you’re ready.</p>
-    <div class="cta-row">
-      <a href="/playground" role="button" class="contrast">Try the Playground</a
-      >
-      <a href="/signup" role="button" class="primary">Get Started</a>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      {#each Array(3) as _}
+        <section>
+          <h6>Headline</h6>
+          <p class="muted">Sample footer text</p>
+        </section>
+      {/each}
     </div>
   </div>
-</section>
+</footer>
 
 <style>
-  /* Layout helpers */
-  .cols-illustration {
-    grid-template-columns: minmax(260px, 1fr) minmax(260px, 420px);
-    align-items: center;
+  :root {
+    --r: 6px;
+    --veil: color-mix(in srgb, #fff 70%, transparent);
   }
-  @media (max-width: 860px) {
-    .cols-illustration {
-      grid-template-columns: 1fr;
-    }
+  .container {
+    max-width: min(100%, 1140px);
+    padding-inline: clamp(16px, 3vw, 28px);
+    position: relative;
+    background-color: whitesmoke;
+  }
+  main.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg);
+    background-repeat: no-repeat;
+    background-position: top;
+    transform: rotate(15deg);
+    transform-origin: top;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+  }
+  main.container > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .band {
+    margin-top: 2.5rem;
+    height: 64px;
+    background: var(--brand-jade-600);
   }
 
   /* Hero */
   .hero {
-    position: relative;
-    padding-top: 0.75rem;
-    padding-bottom: 0.25rem;
-  }
-  .hero-copy h1 {
-    font-size: clamp(1.6rem, 2vw + 1rem, 2.3rem);
-    margin: 0 0 0.25rem;
-  }
-  .lead {
-    color: var(--pico-muted-color);
-    max-width: 70ch;
-    margin: 0.25rem 0 0.75rem;
-  }
-  .cta {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-  .microcopy {
-    font-size: 0.85rem;
-    color: var(--pico-muted-color);
-    margin-top: 0.35rem;
-  }
-
-  /* Animated hero art */
-  .hero-art {
-    position: absolute;
-    inset: -10px 0 auto 0;
-    height: 160px;
-    pointer-events: none;
-    opacity: 0.6;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.2));
-  }
-  .coin {
-    position: absolute;
-    width: 72px;
-    height: 72px;
-    animation: float 8s ease-in-out infinite;
-  }
-  .c1 {
-    left: 6%;
-    top: 10%;
-    animation-duration: 7.2s;
-  }
-  .c2 {
-    left: 22%;
-    top: 28%;
-    animation-duration: 8.6s;
-  }
-  .c3 {
-    left: 38%;
-    top: 8%;
-    animation-duration: 7.8s;
-  }
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-12px);
-    }
-  }
-  .coin-bg {
-    fill: color-mix(in srgb, var(--pico-primary), #000 8%);
-  }
-  .coin-txt {
-    font:
-      700 28px/1 ui-sans-serif,
-      system-ui,
-      sans-serif;
-    fill: var(--pico-primary-inverse);
-  }
-  .lock {
-    stroke: var(--pico-primary-inverse);
-    stroke-width: 3;
-    fill: none;
-  }
-  .node {
-    fill: color-mix(in srgb, var(--pico-primary), #000 12%);
-  }
-  .edge {
-    stroke: color-mix(in srgb, var(--pico-primary), #fff 10%);
-    stroke-width: 3;
-    fill: none;
-  }
-
-  /* Cards + reveal-on-scroll */
-  .card {
-    overflow: hidden;
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: rise 0.6s ease-out forwards;
-  }
-  .reveal:nth-of-type(1) {
-    animation-delay: 0.05s;
-  }
-  .reveal:nth-of-type(2) {
-    animation-delay: 0.12s;
-  }
-  .reveal:nth-of-type(3) {
-    animation-delay: 0.18s;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
-    .coin {
-      animation: none;
-    }
-  }
-  @keyframes rise {
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* Illustration styling */
-  .illus {
     display: grid;
-    place-items: center;
-    padding: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2.5vw, 24px);
+    margin-top: -120px;
+    align-items: start;
   }
-  .illus-svg {
-    max-width: 420px;
+  @media (max-width: 991px) {
+    .hero {
+      grid-template-columns: 1fr;
+      margin-top: -100px;
+    }
+  }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border-radius: var(--r);
+    padding: 24px 36px;
+  }
+  .card--headline {
+    background: var(--brand-jade-100);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  }
+  .card--tip {
+    border: 1px solid var(--deco-border-amber);
+  }
+  .cardstep h6 {
+    color: var(--brand-jade-800);
+  }
+  .cardstep p {
+    color: var(--brand-jade-900);
+  }
+
+  /* Media */
+  .media-left img {
     width: 100%;
     height: auto;
+    border-radius: var(--r);
+    object-fit: cover;
   }
-  .box {
-    fill: color-mix(in srgb, var(--pico-primary), #000 90%);
-  }
-  .lbl {
-    fill: var(--pico-primary-inverse);
-    font:
-      600 14px/1 ui-sans-serif,
-      system-ui,
-      sans-serif;
-  }
-  .lbl.small {
-    font-weight: 500;
-    font-size: 12px;
-  }
-  .flow {
-    stroke: url(#grad);
-    stroke-width: 4;
-    fill: none;
-  }
-  .coin-dot {
-    fill: color-mix(in srgb, var(--pico-primary), #000 8%);
-  }
-  .hub {
-    fill: color-mix(in srgb, var(--pico-primary), #000 12%);
-  }
-  .node {
-    fill: color-mix(in srgb, var(--pico-primary), #000 18%);
-  }
-  .edge {
-    stroke: color-mix(in srgb, var(--pico-primary), #fff 12%);
-    stroke-width: 3;
-    fill: none;
-  }
-  .pulse .hub {
-    animation: pulse 1.6s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%,
-    100% {
-      filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
-    }
-    50% {
-      filter: drop-shadow(
-        0 0 10px color-mix(in srgb, var(--pico-primary), #fff 25%)
-      );
-    }
+  .media-right {
+    min-height: 360px;
+    border-radius: var(--r);
+    border: 1px solid var(--deco-border-amber);
+    background: center/cover no-repeat var(--veil);
+    background-image: var(--img);
   }
 
-  /* Verdict & final CTA */
-  .verdict ul {
-    margin-top: 0.25rem;
-  }
-  .final-cta .cta {
-    text-align: center;
-  }
-  .final-cta .cta-row {
+  /* Action area */
+  .action {
+    margin-top: 2rem;
     display: flex;
-    gap: 0.6rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
-  /* Buttons: optional outline helper */
-  .outline {
-    background: transparent;
-    border: 1px solid var(--pico-muted-border-color);
+  /* Video hero */
+  .hihero {
+    position: relative;
+    min-height: 60vh;
+    overflow: hidden;
+  }
+  .bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .hihero-content {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    max-width: 400px;
+    text-align: right;
+  }
+  .hihero-content h1 {
+    color: var(--brand-jade-100);
+  }
+  .hihero-content p {
+    color: white;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--pico-muted-border-color);
+    padding: 28px 0;
+    margin-top: 32px;
+    background: var(--brand-jade-100);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 991px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .muted {
+    color: #61706b;
   }
 </style>

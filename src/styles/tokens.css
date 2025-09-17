@@ -2,47 +2,130 @@
 /* Base */
 :root {
   --pico-font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  --pico-border-radius: 8px;
+  --pico-border-radius: 12px;
+
+  /* Brand — Jade */
+  --brand-jade-900: #052014;
+  --brand-jade-800: #033823;
+  --brand-jade-700: #006D46;
+  --brand-jade-600: #00A36C;
+  --brand-jade-500: #00B074;
+  --brand-jade-400: #00C37A;
+  --brand-jade-300: #4AD39E;
+  --brand-jade-100: #70FCBA;
+
+  /* Brand — Amber */
+  --brand-amber-900: #231A03;
+  --brand-amber-800: #FF8F00;
+  --brand-amber-700: #FF9E00;
+  --brand-amber-600: #FFB300;
+  --brand-amber-500: #FFC107;
+  --brand-amber-400: #B78800;
+  --brand-amber-300: #FFD54F;
+  --brand-amber-100: #FDDEA6;
+
+
+  /* Accent we’ll use throughout */
+  --accent: var(--brand-amber-600);
+  --accent-underline: color-mix(in oklab, var(--accent) 50%, transparent);
+  --accent-glow: 0 0 0.75rem color-mix(in oklab, var(--accent) 30%, transparent);
+
+  /* Shadows */
+  --shadow-elev-1: 0 6px 18px rgba(0, 0, 0, .08);
+  --shadow-elev-2: 0 12px 32px rgba(0, 0, 0, .12);
+
+  /* Layout max width */
+  --container-max: 1160px;
 }
 
-/* LIGHT */
+/* LIGHT THEME (default) */
 :root,
 html[data-theme="light"],
 .pico,
 .pico[data-theme="light"] {
-  --pico-primary: #FFB300;
-  --pico-primary-hover: #FFCA28;
-  --pico-primary-underline: rgba(255, 179, 0, .5);
-  --pico-primary-focus: rgba(255, 179, 0, .677);
+  /* Pico primary (controls buttons, links, focus) */
+  --pico-primary: var(--brand-jade-400);
+  --pico-primary-hover: var(--brand-jade-300);
+  --pico-primary-underline: color-mix(in oklab, var(--brand-jade-600) 50%, transparent);
+  --pico-primary-focus: color-mix(in oklab, var(--brand-jade-600) 60%, transparent);
 
-  --pico-primary-background: #FFB300;
-  --pico-primary-hover-background: #FFA000;
-  --pico-primary-border: var(--pico-primary-background);
-  --pico-primary-hover-border: var(--pico-primary-hover-background);
-  --pico-primary-inverse: #ffffff;
+  --pico-primary-background: var(--brand-amber-800);
+  --pico-primary-hover-background: var(--brand-amber-500);
+  /* close to Jade 650 */
+  --pico-primary-border: color-mix(in oklab, var(--brand-jade-700) 70%, #0000);
 
-  --pico-text-color: #1A1A1A;
-  --pico-background-color: #FFFFFF;
+  /* Surfaces */
+  --surface: #ffffff;
+  --surface-2: #f9faf9;
+  --text-1: #0f1720;
+  --text-2: #344b45;
 
-  accent-color: var(--pico-primary);
+  /* Decorative Amber usage */
+  --badge-bg: color-mix(in oklab, var(--accent) 15%, #fff);
+  --divider: color-mix(in oklab, var(--accent) 35%, transparent);
 }
 
-/* DARK */
+/* DARK THEME */
 html[data-theme="dark"],
 .pico[data-theme="dark"] {
-  --pico-primary: #FFC107;
-  --pico-primary-hover: #FFD54F;
-  --pico-primary-underline: rgba(255, 193, 7, .5);
-  --pico-primary-focus: rgba(255, 193, 7, .375);
+  --pico-primary: var(--brand-jade-400);
+  --pico-primary-hover: var(--brand-jade-300);
+  --pico-primary-background: #0e3f2b;
+  --pico-primary-hover-background: #12533a;
 
-  --pico-primary-background: #FFB300;
-  --pico-primary-hover-background: #FFA000;
-  --pico-primary-border: var(--pico-primary-background);
-  --pico-primary-hover-border: var(--pico-primary-hover-background);
-  --pico-primary-inverse: #000000;
+  --surface: #0c1210;
+  --surface-2: #0f1714;
+  --text-1: #e6f4ef;
+  --text-2: #b9d2c9;
 
-  --pico-text-color: #F2F2F2;
-  --pico-background-color: #0E0F12;
+  --badge-bg: color-mix(in oklab, var(--accent) 25%, #000);
+  --divider: color-mix(in oklab, var(--accent) 45%, transparent);
+}
 
-  accent-color: var(--pico-primary);
+/* Utilities shared across pages */
+.container-narrow {
+  max-width: min(100%, var(--container-max));
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 28px);
+}
+
+.badge {
+  display: inline-flex;
+  gap: .5rem;
+  align-items: center;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  background: var(--badge-bg);
+  box-shadow: var(--accent-glow);
+  font-weight: 600;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+.cardish {
+  background: var(--surface);
+  border: 1px solid color-mix(in oklab, var(--accent) 14%, transparent);
+  border-radius: var(--pico-border-radius);
+  box-shadow: var(--shadow-elev-1);
+  padding: clamp(16px, 2.5vw, 24px);
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(60% 60% at 20% 0%, color-mix(in oklab, var(--accent) 30%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 50% at 80% 10%, color-mix(in oklab, var(--pico-primary) 25%, transparent) 0%, transparent 60%);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+
+.cta {
+  box-shadow: var(--shadow-elev-2);
 }

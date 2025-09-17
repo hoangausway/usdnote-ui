@@ -19,9 +19,9 @@
   class={`xsync-logo ${className}`}
   role="img"
   aria-label={ariaLabel}
-  style={`height:${size}px;`}
-  fill={color}
-  stroke={color}
+  style={`height:${size}px; color:${color};`}
+  fill="currentColor"
+  stroke="currentColor"
   {...$$restProps}
 >
   {#if title}<title>{title}</title>{/if}

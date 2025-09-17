@@ -1,6 +1,8 @@
 <script>
   import { tick } from "svelte";
   import Icon from "./Icon.svelte";
+  import page from "page";
+  import { logout } from "../stores/auth.js";
 
   // ===== Props =====
   export let id = "app-drawer"; // match Header MenuButton aria-controls
@@ -24,13 +26,25 @@
     open = false;
   }
 
+  function handleFooterClick(it, e) {
+    if (it.href === "/logout") {
+      e.preventDefault();
+      logout(); // set isAuthed = false
+      close();
+      page("/"); // redirect home
+    } else {
+      // non-logout footer links: just close the panel and allow navigation
+      close();
+    }
+  }
+
   async function focusFirst() {
     await tick();
     const first = panel?.querySelector(
       "a,button,[tabindex]:not([tabindex='-1'])"
     );
     if (first) first.focus();
-    else panel?.focus?.(); // fallback: focus dialog itself
+    else panel?.focus?.();
   }
 
   // Lock scroll + move/restore focus when `open` changes
@@ -63,15 +77,6 @@
     on:click={close}
   />
 
-  <!-- Focus sentinel (start) -->
-  <!-- <div
-    tabindex="0"
-    on:focus={() => {
-      const t = panel?.querySelector(".icon.close, .p-nav a, .p-foot a");
-      (t || panel)?.focus?.();
-    }}
-  /> -->
-
   <aside
     bind:this={panel}
     {id}
@@ -82,22 +87,19 @@
     tabindex="-1"
     style={`--w:${width}px`}
   >
-    <!-- Header: brand + close -->
+    <!-- Header: brand -->
     <header class="p-head">
       <div class="brand">
         {#if logoSrc}<img src={logoSrc} alt={`${logoText} logo`} />{/if}
         <span id="panel-title" class="t">{title || logoText}</span>
       </div>
-      <!-- <button
-        class="icon close"
-        type="button"
-        aria-label="Close menu"
-        on:click={close}>×</button
-      > -->
+      <!-- If you want a close button here, uncomment:
+      <button class="icon close" type="button" aria-label="Close menu" on:click={close}>×</button>
+      -->
     </header>
 
     <!-- Primary navigation -->
-    <nav class="p-nav" aria-label="Primary" on:click={close}>
+    <nav class="p-nav" aria-label="Primary">
       {#if sections}
         {#each sections as sec}
           {#if sec.heading}<div class="sec">{sec.heading}</div>{/if}
@@ -110,6 +112,7 @@
                 class:active={it.active ||
                   (activeHref && it.href === activeHref)}
                 href={it.href}
+                on:click={close}
               >
                 <span class="ic" aria-hidden="true"
                   >{#if it.icon}<Icon name={it.icon} />{/if}</span
@@ -129,9 +132,13 @@
               class="nav-item"
               class:active={it.active || (activeHref && it.href === activeHref)}
               href={it.href}
+              on:click={close}
             >
               <span class="ic" aria-hidden="true"
-                >{#if it.icon}<Icon name={it.icon} />{/if}</span
+                >{#if it.icon}<Icon
+                    name={it.icon}
+                    stroke="var(--brand-amber-800)"
+                  />{/if}</span
               >
               <span class="lbl">{it.label}</span>
               {#if it.badge}<span class="badge">{it.badge}</span>{/if}
@@ -153,14 +160,21 @@
 
     <!-- Footer links -->
     {#if footerItems && footerItems.length}
-      <footer class="p-foot" aria-label="Secondary" on:click={close}>
+      <footer class="p-foot" aria-label="Secondary">
         {#each footerItems as it}
           {#if it.separator}
             <hr />
           {:else}
-            <a class="nav-item" href={it.href}>
+            <a
+              class="nav-item"
+              href={it.href}
+              on:click={(e) => handleFooterClick(it, e)}
+            >
               <span class="ic" aria-hidden="true"
-                >{#if it.icon}<Icon name={it.icon} />{/if}</span
+                >{#if it.icon}<Icon
+                    name={it.icon}
+                    stroke="var(--brand-amber-800)"
+                  />{/if}</span
               >
               <span class="lbl">{it.label}</span>
             </a>
@@ -170,9 +184,9 @@
     {/if}
   </aside>
 
-  <!-- Focus sentinel (end) -->
+  <!-- Focus sentinel (end) — programmatic only -->
   <div
-    tabindex="0"
+    tabindex="-1"
     on:focus={() => (panel || document.activeElement)?.focus?.()}
   />
 {/if}
@@ -189,7 +203,7 @@
     padding: 0;
   }
 
-  /* ---------- Panel (single source of truth) ---------- */
+  /* ---------- Panel ---------- */
   .panel {
     position: fixed;
     inset-block: 0;
@@ -203,8 +217,8 @@
 
     /* Theme hooks — derive from Pico tokens */
     --sp-accent: var(--pico-primary);
-    --sp-bg: var(--pico-primary-background);
-    --sp-fg: var(--pico-primary-inverse); /* <- panel text color */
+    --sp-bg: var(--brand-jade-700);
+    --sp-fg: var(--pico-primary-inverse);
     --sp-sep: color-mix(in srgb, var(--sp-fg), transparent 65%);
 
     background: var(--sp-bg);
@@ -212,11 +226,9 @@
 
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
     border-right: 1px solid color-mix(in srgb, var(--sp-fg), transparent 80%);
-
     animation: slideIn 0.18s ease-out;
   }
 
-  /* Ensure black text in DARK theme per your requirement */
   :global(html[data-theme="dark"]) .panel {
     --sp-fg: #000; /* force black text on amber in dark mode */
   }
@@ -237,7 +249,7 @@
     }
   }
 
-  /* ---------- Typography + link reset (inherit panel color) ---------- */
+  /* ---------- Typography + link reset ---------- */
   .panel
     :is(h1, h2, h3, h4, h5, h6, p, small, strong, em, span, li, div, button) {
     color: inherit;
@@ -276,6 +288,7 @@
   .brand .t {
     font-weight: 600;
     letter-spacing: 0.2px;
+    color: var(--brand-amber-800);
   }
 
   /* ---------- User card ---------- */
@@ -285,8 +298,6 @@
     gap: 0.75rem;
     align-items: center;
     padding: 0.6rem 0.5rem;
-    background: color-mix(in srgb, var(--sp-accent), transparent 90%);
-    border: 1px solid color-mix(in srgb, var(--sp-accent), transparent 75%);
     border-radius: 0.8rem;
   }
   .u-text strong {
@@ -337,16 +348,14 @@
     block-size: 24px;
     display: grid;
     place-items: center;
-    color: inherit; /* icons follow text color (SVG uses currentColor) */
+    color: inherit;
   }
   .ic :global(svg) {
     display: block;
   }
-
   .lbl {
     font-weight: 200;
   }
-
   .badge {
     justify-self: end;
     font-size: 0.72rem;

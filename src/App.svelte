@@ -3,8 +3,8 @@
   import HeaderBar from "./components/HeaderBar.svelte";
   import BottomBar from "./components/BottomBar.svelte";
   import SidePanel from "./components/SidePanel.svelte";
+  import { isAuthed } from "./stores/auth.js";
 
-  let isAuthed = true; // wire to your auth store later
   let user = { name: "Hoang Nguyen", email: "hoang@example.com" };
 
   let drawerOpen = false; // NEW
@@ -27,7 +27,7 @@
 
 <main class="pico">
   <HeaderBar
-    {isAuthed}
+    isAuthed={$isAuthed}
     menuExpanded={drawerOpen}
     on:menu={() => (drawerOpen = true)}
   />
@@ -41,7 +41,7 @@
   <!-- <SidePanel bind:open={drawerOpen} title="Menu" items={navItems} /> -->
   <SidePanel
     bind:open={drawerOpen}
-    title="USDNote"
+    title="USDNote™"
     {items}
     {footerItems}
     {user}
